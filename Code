@@ -1,0 +1,42 @@
+import string
+def add_entry(phonebook, name, phone_number):
+	if (phone_num_checker(phone_number)) and (name not in phonebook):
+		phonebook[name] = phone_number
+	return phonebook
+def phone_num_checker(phone_number):
+	phone_number = str(phone_number)
+	elem_counter = 0
+	for elem in phone_number:
+		if elem not in string.digits:
+			print('Not valid. Invalid digits')
+			return False
+		else:
+			elem_counter += 1
+	if elem_counter != 10:
+		print('Not valid. Not enough digits')
+		return False
+	else:
+		return True
+def lookup(phonebook, name):
+	if name in phonebook:
+		print(phonebook[name])
+	else:
+		print("Error!", name, "is not in Phonebook")
+def print_all(phonebook):
+	for key in phonebook:
+		print(key, phonebook[key])
+def main():
+	file = open("Lab 13 - phonebook.txt", 'r')
+	phone_dict = {}
+	for lines in file:
+		lines = lines.strip()
+		name, phone_num = lines.rsplit(" ", 1)
+		add_entry(phone_dict, name, phone_num)
+	work_option = input("What do you want to do today?")
+	if work_option == "lookup":
+		user_input = input("Enter the name")
+		lookup(phone_dict, user_input)
+	if work_option == "print all":
+		print_all(phone_dict)
+
+main()
